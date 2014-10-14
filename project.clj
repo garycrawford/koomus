@@ -7,7 +7,11 @@
                  [environ "1.0.0"]
                  [robert/hooke "1.3.0"]
                  [org.neo4j/neo4j "1.9"]
-                 [neo4j-batch-inserter "0.1.0-SNAPSHOT"]]
+                 [com.taoensso/timbre "3.3.1"]
+                 [neo4j-batch-inserter "0.1.0-SNAPSHOT"]
+                 [cheshire "5.3.1"]
+                 [com.stuartsierra/component "0.2.2"]
+                 [compojure "1.2.0"]]
   :main bulk-loader.core
   :profiles {:dev {:plugins [[lein-midje "3.1.3" ]
                              [lein-ancient "0.5.5"]

@@ -1,7 +1,10 @@
 (ns bulk-loader.core
   (:gen-class :main true)
   (:require [clojure.java.io :refer [resource]]
-            [neo4j-batch-inserter.core :refer [insert-batch]])
+            [neo4j-batch-inserter.core :refer [insert-batch]]
+            [robert.hooke :as hooke]
+            [taoensso.timbre :as timbre]
+            [cheshire.core :refer [generate-string]])
   (:import (java.awt.image BufferedImage)
            (javax.imageio  ImageIO)
            (org.neo4j.unsafe.batchinsert BatchInserters
@@ -24,12 +27,15 @@
      :height height
      :width  width}))
 
+(defn- create-node-map
+  "Creates a node map from an id and a pixel."
+  [id [b g r]]
+  {:id (str id) :b b :g g :r r :type "pixel"})
+
 (defn generate-node-maps
   "Given a pixel collection will return collection of node maps."
   [pixels]
-  (map
-    (fn [id [b g r]] {:id (str id) :b b :g g :r r :type "pixel"})
-    (range) (partition 3 pixels)))
+  (map #(create-node-map %1 %2) (range) (partition 3 pixels)))
 
 (defn- add-rel
   "Adds the specified relationship to the collection."
@@ -99,3 +105,30 @@
       {:auto-indexing {:red-fn :r :green-fn :g :blue-fn :b :id-fn :id}}
       {:nodes (generate-node-maps pixels)
        :relationships (generate-edge-maps width height)})))
+
+; (timbre/refer-timbre) ; Provides useful Timbre aliases in this ns
+; 
+; (defn log-get-image-data
+;   "logs the call to get image data"
+;   [f resource]
+;   (let [result (f resource)]
+;     (info (generate-string {:message "image loaded from disk"  :path (.getPath resource) :width (:width result) :height (:height result)})) 
+;     result))
+; 
+; (defn log-add-rels
+;   "logs the call to get image data"
+;   [f rels pixel-index height width]
+;   (let [in-count (count rels)
+;         result (f rels pixel-index height width)]
+;     (debug (generate-string {:message "rel maps added for pixel" :pixel pixel-index :rels-added (- (count result) in-count)})) 
+;     result))
+; 
+; (defn log-create-node-map
+;   "Logs call to create-node-map"
+;   [f id pixel]
+;   (let [result (f id pixel)]
+;     (debug (generate-string {:message "node map added for pixel" :map result})) ))
+; 
+; (hooke/add-hook #'get-image-data #'log-get-image-data)
+; (hooke/add-hook #'add-rels #'log-add-rels)
+; (hooke/add-hook #'create-node-map #'log-create-node-map)
