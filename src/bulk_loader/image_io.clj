@@ -114,6 +114,7 @@
 ;   (let [result (f resource)]
 ;     (info (generate-string {:message "image loaded from disk"  :path (.getPath resource) :width (:width result) :height (:height result)})) 
 ;     result))
+;
 ; 
 ; (defn log-add-rels
 ;   "logs the call to get image data"
