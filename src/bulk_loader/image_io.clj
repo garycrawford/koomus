@@ -1,4 +1,4 @@
-(ns bulk-loader.core
+(ns bulk-loader.image-io
   (:gen-class :main true)
   (:require [clojure.java.io :refer [resource]]
             [neo4j-batch-inserter.core :refer [insert-batch]]

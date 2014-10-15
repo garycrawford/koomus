@@ -1,7 +1,7 @@
-(ns bulk-loader.core-test
+(ns bulk-loader.image-io-test
   (:use [midje.sweet :only (facts fact future-fact => contains)])
   (:require [clojure.test :refer :all]
-            [bulk-loader.core :refer :all]
+            [bulk-loader.image-io :refer :all]
             [clojure.java.io :refer :all]))
 
 (def uri_3x3_bw (resource "3x3_bw.JPG"))
