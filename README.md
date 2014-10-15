@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/garycrawford/koomus.svg?branch=master)](https://travis-ci.org/garycrawford/koomus)
+[![Build Status](https://snap-ci.com/garycrawford/koomus/branch/master/build_image)](https://snap-ci.com/garycrawford/koomus/branch/master)
 
 # bulk-loader
 
