@@ -12,7 +12,7 @@
                  [cheshire "5.3.1"]
                  [com.stuartsierra/component "0.2.2"]
                  [compojure "1.2.0"]]
-  :main bulk-loader.core
+  :main bulk-loader.image-io
   :profiles {:dev {:plugins [[lein-midje "3.1.3" ]
                              [lein-ancient "0.5.5"]
                              [lein-kibit "0.0.8"]
@@ -26,4 +26,4 @@
                     :all  (constantly true)}
   :resource-paths  ["test/resources"]
   :aliases  {"omni"  ["do"  ["clean"] ["ancient"]  ["kibit"]  ["bikeshed"] ["eastwood"]]}
-  :jvm-opts  ["-Xms2g" "-Xmx12g"])
+  :jvm-opts  ["-Xms2g" "-Xmx4g"])
