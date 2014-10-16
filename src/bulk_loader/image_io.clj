@@ -11,6 +11,8 @@
                                          BatchInserter)
            (org.neo4j.index.lucene.unsafe.batchinsert LuceneBatchInserterIndexProvider)))
 
+(timbre/refer-timbre) ; Provides useful Timbre aliases in this ns
+
 (defn get-pixels
   "Gets the pixels in a BufferedImage as a primitive byte[] array."
   (^bytes [^BufferedImage image width height]
@@ -100,6 +102,7 @@
   (let [{:keys [pixels width height]} (-> "krakow.JPG"
                                           resource
                                           get-image-data)]
+    (info "Starting Neo batch insertion")
     (insert-batch
       "store" 
       {:auto-indexing {:red-fn :r :green-fn :g :blue-fn :b :id-fn :id}}
