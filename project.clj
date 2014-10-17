@@ -11,15 +11,20 @@
                  [neo4j-batch-inserter "0.1.0-SNAPSHOT"]
                  [cheshire "5.3.1"]
                  [com.stuartsierra/component "0.2.2"]
-                 [compojure "1.2.0"]]
-  :main bulk-loader.image-io
-  :profiles {:dev {:plugins [[lein-midje "3.1.3" ]
+                 [compojure "1.2.0"]
+                 [ring/ring-jetty-adapter "1.3.1"]
+                 [ring/ring-json "0.3.1"]
+                 [ring/ring-defaults "0.1.2"]]
+  :profiles {:dev {:source-paths  ["dev"]
+                   :plugins [[lein-midje "3.1.3" ]
                              [lein-ancient "0.5.5"]
                              [lein-kibit "0.0.8"]
                              [lein-bikeshed "0.1.8"]
                              [jonase/eastwood "0.1.4"]]
-                   :dependencies [[midje "1.6.3"]]}}
-;  :global-vars  {*warn-on-reflection* true
+                   :dependencies [[midje "1.6.3"]
+                                  [org.clojure/tools.namespace "0.2.7"]]}}
+;  :global-vars  {midje.sweet/*include-midje-checks*
+;                 *warn-on-reflection* true
 ;                 *assert* false}
   :test-selectors  {:default  (complement :benchmark)
                     :benchmark :benchmark
