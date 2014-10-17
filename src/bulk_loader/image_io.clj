@@ -1,7 +1,8 @@
 (ns bulk-loader.image-io
   (:require [com.stuartsierra.component :as component]
             [clojure.java.io :refer [resource]]
-            [neo4j-batch-inserter.core :refer [insert-batch]])
+            [neo4j-batch-inserter.core :refer [insert-batch]]
+            [taoensso.timbre :as timbre])
   (:import (java.awt.image BufferedImage)
            (javax.imageio  ImageIO)
            (org.neo4j.unsafe.batchinsert BatchInserters
