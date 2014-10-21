@@ -14,13 +14,20 @@
                  [compojure "1.2.0"]
                  [ring/ring-jetty-adapter "1.3.1"]
                  [ring/ring-json "0.3.1"]
-                 [ring/ring-defaults "0.1.2"]]
-  :profiles {:dev {:source-paths  ["dev"]
+                 [ring/ring-defaults "0.1.2"]
+                 [com.taoensso/carmine "2.7.1"]
+                 [org.clojars.hozumi/clj-commons-exec "1.0.7"]]
+  :profiles {:dev {:env {:redis-conf-path "/etc/redis/"
+                         :redis-start-cmd "redis-server"
+                         :host "127.0.0.1"
+                         :port 1245}
+                   :source-paths  ["dev"]
                    :plugins [[lein-midje "3.1.3" ]
                              [lein-ancient "0.5.5"]
                              [lein-kibit "0.0.8"]
                              [lein-bikeshed "0.1.8"]
-                             [jonase/eastwood "0.1.4"]]
+                             [jonase/eastwood "0.1.4"]
+                             [lein-environ "1.0.0"]]
                    :dependencies [[midje "1.6.3"]
                                   [org.clojure/tools.namespace "0.2.7"]]}}
 ;  :global-vars  {midje.sweet/*include-midje-checks*
