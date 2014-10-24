@@ -1,4 +1,4 @@
-(ns bulk-loader.system-test
+(ns bulk-loader.unit.system
   (:use [midje.sweet :only (facts fact contains => anything)])
   (:require [clojure.test :refer :all]
             [bulk-loader.system :refer :all]

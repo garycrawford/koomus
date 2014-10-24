@@ -1,6 +1,7 @@
-(ns bulk-loader.image-io-test
+(ns bulk-loader.unit.neo
   (:use [midje.sweet :only (facts fact future-fact => contains)])
   (:require [clojure.test :refer :all]
+            [bulk-loader.neo :refer :all]
             [bulk-loader.image-io :refer :all]
             [clojure.java.io :refer :all]))
 
@@ -11,18 +12,6 @@
   "Confirms that rgb values in a pixel are of type byte."
   [{:keys [b g r]}]
   (every? #(= java.lang.Byte (type %)) #{b g r}))
-
-(facts "when loading an image"
-  (fact "given a URL to a valid JPG image data should be returned"
-    (let [{:keys [pixels width height]} (get-image-data uri_3x1_rgb)]
-      (count pixels) => 9
-      width          => 3
-      height         => 1)
-
-    (let [{:keys [pixels width height]} (get-image-data uri_3x3_bw)]
-      (count pixels) => 27
-      width          => 3
-      height         => 3)))
 
 (facts "generate node maps"
   (fact "should contain one map entry for each pixel"
@@ -86,107 +75,39 @@
                                                 :to   {:id 201 :type "pixel"}
                                                 :type "neighbours"
                                                 })))
+
+(defn- rel
+  [id1 id2]
+  {:from {:id id1 :type "pixel"}
+   :to   {:id id2 :type "pixel"}
+   :type "neighbours"})
+
 (facts "generate all edges with a height and width"
   (fact "should be converted into a collection of edge maps"
     (generate-edge-maps 1 2) =>
         (contains
-          {:from {:id 0 :type "pixel"}
-           :to {:id 1 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 1 :type "pixel"}
-           :to {:id 0 :type "pixel"}
-           :type "neighbours"}
+          (rel 0 1) (rel 1 0)
           :in-any-order)
 
     (generate-edge-maps 1 3) =>
         (contains
-          {:from {:id 0 :type "pixel"}
-           :to {:id 1 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 1 :type "pixel"}
-           :to {:id 0 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 1 :type "pixel"}
-           :to {:id 2 :type "pixel"}
-           :type "neighbours"} 
-          {:from {:id 2 :type "pixel"}
-           :to {:id 1 :type "pixel"}
-           :type "neighbours"}
+          (rel 0 1) (rel 1 0)
+          (rel 1 2) (rel 2 1)
           :in-any-order)
 
     (count (generate-edge-maps 3 3)) => 24
     (generate-edge-maps 3 3) =>
         (contains
-          {:from {:id 0 :type "pixel"}
-           :to {:id 1 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 1 :type "pixel"}
-           :to {:id 0 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 0 :type "pixel"}
-           :to {:id 3 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 3 :type "pixel"}
-           :to {:id 0 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 1 :type "pixel"}
-           :to {:id 2 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 2 :type "pixel"}
-           :to {:id 1 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 1 :type "pixel"}
-           :to {:id 4 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 4 :type "pixel"}
-           :to {:id 1 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 2 :type "pixel"}
-           :to {:id 5 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 5 :type "pixel"}
-           :to {:id 2 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 3 :type "pixel"}
-           :to {:id 4 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 4 :type "pixel"}
-           :to {:id 3 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 3 :type "pixel"}
-           :to {:id 6 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 6 :type "pixel"}
-           :to {:id 3 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 4 :type "pixel"}
-           :to {:id 5 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 5 :type "pixel"}
-           :to {:id 4 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 4 :type "pixel"}
-           :to {:id 7 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 7 :type "pixel"}
-           :to {:id 4 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 5 :type "pixel"}
-           :to {:id 8 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 8 :type "pixel"}
-           :to {:id 5 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 6 :type "pixel"}
-           :to {:id 7 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 7 :type "pixel"}
-           :to {:id 6 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 7 :type "pixel"}
-           :to {:id 8 :type "pixel"}
-           :type "neighbours"}
-          {:from {:id 8 :type "pixel"}
-           :to {:id 7 :type "pixel"}
-           :type "neighbours"}
+         (rel 0 1) (rel 1 0)
+         (rel 0 3) (rel 3 0)
+         (rel 1 2) (rel 2 1)
+         (rel 1 4) (rel 4 1)
+         (rel 2 5) (rel 5 2)
+         (rel 3 4) (rel 4 3)
+         (rel 3 6) (rel 6 3)
+         (rel 4 5) (rel 5 4)
+         (rel 4 7) (rel 7 4)
+         (rel 5 8) (rel 8 5)
+         (rel 6 7) (rel 7 6)
+         (rel 7 8) (rel 8 7)
           :in-any-order)))

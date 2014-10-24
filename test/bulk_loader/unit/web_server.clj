@@ -1,4 +1,4 @@
-(ns bulk-loader.web-server-test
+(ns bulk-loader.unit.web-server
   (:use [midje.sweet :only (facts fact => just)])
   (:require [clojure.test :refer :all]
             [ring.adapter.jetty :as jetty]
