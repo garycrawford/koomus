@@ -7,7 +7,7 @@
     [ring.middleware.json :as middleware]
     [ring.adapter.jetty :as jetty]
     [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
-    [bulk-loader.image-io :refer [insert-image]]))
+    [bulk-loader.neo :refer [insert-image]]))
 
 (defroutes app-routes
   (context "/api" []
