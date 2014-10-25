@@ -10,7 +10,7 @@
 
 (def redis (new-redis "redis-server" "/etc/redis/"))
 
-(fact "Calling start will bring up Redis and stop will shutdown"
+(fact :local-only "Calling start will bring up Redis and stop will shutdown"
   (tcar* (car/ping)) => (throws Exception "Carmine connection error")
   (alter-var-root #'redis component/start)
   (tcar* (car/ping)) => "PONG"
