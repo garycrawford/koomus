@@ -2,7 +2,7 @@ language: clojure
 lein: lein2
 jdk:
 - openjdk7
-script: lein midje
+script: lein midje :filter -local-only
 notifications:
   slack:
     secure: TEMIenFRdRla4GY5WHizpb2V8OWCQ1RRwRlR9NQt5DYP7pDEYeMuprPzwlxcoYHOEghlSSS2SKuNjiTzh4fhYXS49WiUxd7hVD1S3atLluJxxK3miDvkv/RlNE3s13X1NlOyQ2eNMohxsq2oj/nSn4ELFR3gNRTX+oX4cApU3Ow=

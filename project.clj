@@ -30,9 +30,9 @@
                              [lein-environ "1.0.0"]]
                    :dependencies [[midje "1.6.3"]
                                   [org.clojure/tools.namespace "0.2.7"]]}}
-;  :test-selectors {:default (complement :slow)
-;                   :slow :slow
-;                   :all (constantly true)}
+  :test-selectors {:default (complement :local-only)
+                   :local-only :local-only
+                   :all (constantly true)}
   :resource-paths ["test/resources"]
   :aliases {"omni" ["do" ["clean"] ["ancient"] ["kibit"] ["bikeshed"] ["eastwood"]]}
   :jvm-opts  ["-Xms2g" "-Xmx4g"])
