@@ -14,6 +14,15 @@
 
 (instrument-jvm reg)
 
+(require '[metrics.counters :refer  [defcounter]])
+
+(defcounter reg users-connected)
+
+(require '[metrics.counters :refer  [inc!]])
+
+(inc! users-connected)
+(inc! users-connected 2)
+
 (require '[metrics.reporters.graphite :as graphite])
 (import '[java.util.concurrent.TimeUnit])
 (import '[com.codahale.metrics MetricFilter])
@@ -27,6 +36,11 @@
      :filter MetricFilter/ALL}))
 
 (graphite/start GR 10)
+
+(require '[metrics.reporters.console :as console])
+
+(def CRc  (console/reporter  {}))
+(console/start CRc 10)
 
 (println "should havve run")
 
