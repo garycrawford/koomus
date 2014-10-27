@@ -8,21 +8,6 @@
 
 (import '(java.util.concurrent Future TimeUnit))
 
-(require '[metrics.core :refer  [new-registry]])
-
-(def reg  (new-registry))
-
-(instrument-jvm reg)
-
-(require '[metrics.counters :refer  [defcounter]])
-
-(defcounter reg users-connected)
-
-(require '[metrics.counters :refer  [inc!]])
-
-(inc! users-connected)
-(inc! users-connected 2)
-
 (require '[metrics.reporters.graphite :as graphite])
 (import '[java.util.concurrent.TimeUnit])
 (import '[com.codahale.metrics MetricFilter])
@@ -41,6 +26,18 @@
 
 (def CRc  (console/reporter  {}))
 (console/start CRc 10)
+
+(require '[metrics.core :refer  [new-registry]])
+
+(def reg  (new-registry))
+
+(instrument-jvm reg)
+
+(require '[metrics.counters :refer  [defcounter]])
+
+(defcounter reg users-connected)
+
+(require '[metrics.counters :refer  [inc!]])
 
 (println "should havve run")
 
