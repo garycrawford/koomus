@@ -31,7 +31,7 @@
 
 (def reg  (new-registry))
 
-(instrument-jvm reg)
+(instrument-jvm)
 
 (require '[metrics.counters :refer  [defcounter]])
 
