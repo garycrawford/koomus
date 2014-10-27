@@ -3,7 +3,32 @@
     [com.stuartsierra.component :as component]
     [bulk-loader.web-server :as web-server]
     [bulk-loader.redis :as redis]
-    [environ.core :as environ]))
+    [environ.core :as environ]
+    [metrics.jvm.core :refer  [instrument-jvm]]))
+
+(import '(java.util.concurrent Future TimeUnit))
+
+(require '[metrics.core :refer  [new-registry]])
+
+(def reg  (new-registry))
+
+(instrument-jvm reg)
+
+(require '[metrics.reporters.graphite :as graphite])
+(import '[java.util.concurrent.TimeUnit])
+(import '[com.codahale.metrics MetricFilter])
+
+(def GR  
+  (graphite/reporter  
+    {:host "127.0.0.1"
+     :prefix "koomus-metrics"
+     :rate-unit TimeUnit/SECONDS
+     :duration-unit TimeUnit/MILLISECONDS
+     :filter MetricFilter/ALL}))
+
+(graphite/start GR 10)
+
+(println "should havve run")
 
 (def components [:web-server :redis])
 
