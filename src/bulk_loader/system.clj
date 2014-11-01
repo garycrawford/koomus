@@ -6,7 +6,7 @@
     [bulk-loader.metrics]
     [environ.core :as environ]
   )
-  (:import [bulk-loader.metrics Metrics])
+  (:import [bulk_loader.metrics Metrics])
   )
 
 (def components [:web-server :redis])
@@ -17,7 +17,7 @@
     (component/start-system this components))
   (stop [this]
     (component/stop-system this components)))
-
+(let [sym (Metrics.)])
 (defn new-bulk-loader-system
   "Constructs a component system"
   []
