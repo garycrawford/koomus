@@ -19,11 +19,11 @@
      :duration-unit TimeUnit/MILLISECONDS
      :filter MetricFilter/ALL}))
 
-(instrument-jvm)
 
 (defrecord Metrics []
   component/Lifecycle
   (start [this]
+    (instrument-jvm)
     (graphite/start GR 10))
   (stop [this]
     (graphite/stop GR 10)))
