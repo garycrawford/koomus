@@ -3,13 +3,11 @@
     [com.stuartsierra.component :as component]
     [bulk-loader.web-server :as web-server]
     [bulk-loader.redis :as redis]
-    [bulk-loader.metrics]
+    [bulk-loader.metrics :as metrics]
     [environ.core :as environ]
-  )
-  (:import [bulk_loader.metrics Metrics])
-  )
+  ))
 
-(def components [:web-server :redis])
+(def components [:web-server :redis :metrics])
 
 (defrecord Bulk-Loader-System []
   component/Lifecycle
@@ -17,7 +15,6 @@
     (component/start-system this components))
   (stop [this]
     (component/stop-system this components)))
-(let [sym (Metrics.)])
 (defn new-bulk-loader-system
   "Constructs a component system"
   []
@@ -25,4 +22,5 @@
     {
      :web-server (web-server/new-web-server (environ/env :host) (environ/env :port))
      :redis (redis/new-redis (environ/env :redis-start-cmd) (environ/env :redis-conf-path))
+     :metrics (metrics/new-metrics "127.0.0.1")
     }))

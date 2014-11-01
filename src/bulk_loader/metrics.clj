@@ -11,20 +11,20 @@
     )
   )
 
-(def GR  
-  (graphite/reporter  
-    {:host "127.0.0.1"
-     :prefix "koomus-metrics"
-     :rate-unit TimeUnit/SECONDS
-     :duration-unit TimeUnit/MILLISECONDS
-     :filter MetricFilter/ALL}))
-
-
-(defrecord Metrics []
+(defrecord Metrics [host]
   component/Lifecycle
   (start [this]
-    (instrument-jvm)
-    (graphite/start GR 10))
-  (stop [this]
-    (graphite/stop GR 10)))
+    (assoc this :gr (graphite/reporter
+                      {:host host
+                      :prefix "koomus-metrics"
+                      :rate-unit TimeUnit/SECONDS
+                      :duration-unit TimeUnit/MILLISECONDS
+                      :filter MetricFilter/ALL}))
 
+    (instrument-jvm)
+    (graphite/start (this :gr) 10))
+  (stop [this]
+    (graphite/stop (this :gr))))
+
+(defn new-metrics  [host]
+  (map->Metrics  {:host host}))
