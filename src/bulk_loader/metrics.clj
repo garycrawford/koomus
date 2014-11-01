@@ -22,9 +22,9 @@
                       :filter MetricFilter/ALL}))
 
     (instrument-jvm)
-    (graphite/start (this :gr) 10))
+    (graphite/start (:gr this) 10))
   (stop [this]
-    (graphite/stop (this :gr))))
+    (graphite/stop (:gr this))))
 
 (defn new-metrics  [host]
   (map->Metrics  {:host host}))
