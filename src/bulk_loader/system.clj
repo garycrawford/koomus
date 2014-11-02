@@ -22,5 +22,5 @@
     {
      :web-server (web-server/new-web-server (environ/env :host) (environ/env :port))
      :redis (redis/new-redis (environ/env :redis-start-cmd) (environ/env :redis-conf-path))
-     :metrics (metrics/new-metrics "127.0.0.1")
+     :metrics (metrics/new-metrics (environ/env :graphite-host))
     }))

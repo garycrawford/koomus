@@ -14,17 +14,20 @@
 (defrecord Metrics [host]
   component/Lifecycle
   (start [this]
-    (assoc this :gr (graphite/reporter
+    (if (contains? this :gr) (instrument-jvm)
+      (let [reporter (graphite/reporter
                       {:host host
                       :prefix "koomus-metrics"
                       :rate-unit TimeUnit/SECONDS
                       :duration-unit TimeUnit/MILLISECONDS
-                      :filter MetricFilter/ALL}))
-
-    (instrument-jvm)
-    (graphite/start (:gr this) 10))
+                      :filter MetricFilter/ALL})]
+        (graphite/start reporter 10) 
+        (assoc this :gr reporter)))
+    )
   (stop [this]
-    (graphite/stop (:gr this))))
+    (graphite/stop (:gr this))
+    this
+    ))
 
 (defn new-metrics  [host]
   (map->Metrics  {:host host}))
