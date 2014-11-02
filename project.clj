@@ -23,7 +23,8 @@
   :profiles {:dev {:env {:redis-conf-path "/etc/redis/"
                          :redis-start-cmd "redis-server"
                          :host "127.0.0.1"
-                         :port 1245}
+                         :port 1245
+                         :graphite-host "127.0.0.1"}
                    :source-paths  ["dev"]
                    :plugins [[lein-midje "3.1.3" ]
                              [lein-ancient "0.5.5"]
