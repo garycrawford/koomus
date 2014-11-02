@@ -14,7 +14,8 @@
 (defrecord Metrics [host]
   component/Lifecycle
   (start [this]
-    (if (contains? this :gr) (instrument-jvm)
+    (when-not (contains? this :gr)
+      (instrument-jvm)
       (let [reporter (graphite/reporter
                       {:host host
                       :prefix "koomus-metrics"
