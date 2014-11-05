@@ -16,16 +16,20 @@
   component/Lifecycle
   (start [this]
     (when-not (contains? this :gr)
-      (def reg (new-registry))
-      (instrument-jvm reg)
-      (let [reporter (graphite/reporter reg
-                      {:host host
-                      :prefix "koomus-metrics"
-                      :rate-unit TimeUnit/SECONDS
-                      :duration-unit TimeUnit/MILLISECONDS
-                      :filter MetricFilter/ALL})]
-        (graphite/start reporter 10) 
-        (assoc this :gr reporter)))
+      (let [reg (new-registry)]
+        (instrument-jvm reg)
+        (let [reporter (graphite/reporter reg
+                        {:host host
+                        :prefix "koomus-metrics"
+                        :rate-unit TimeUnit/SECONDS
+                        :duration-unit TimeUnit/MILLISECONDS
+                        :filter MetricFilter/ALL})]
+          (graphite/start reporter 10) 
+          (assoc this :gr reporter))))
+    (when (contains? this :gr)
+      (graphite/start (:gr this) 10)
+      this
+      )
     )
   (stop [this]
     (graphite/stop (:gr this))
