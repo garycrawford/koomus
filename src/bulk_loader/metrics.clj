@@ -4,6 +4,7 @@
     [environ.core :as environ]
     [metrics.jvm.core :refer [instrument-jvm]]
     [metrics.reporters.graphite :as graphite]
+    [metrics.core :refer [new-registry]]
   )
   (:import 
     [java.util.concurrent TimeUnit]
@@ -15,8 +16,9 @@
   component/Lifecycle
   (start [this]
     (when-not (contains? this :gr)
-      (instrument-jvm)
-      (let [reporter (graphite/reporter
+      (def reg (new-registry))
+      (instrument-jvm reg)
+      (let [reporter (graphite/reporter reg
                       {:host host
                       :prefix "koomus-metrics"
                       :rate-unit TimeUnit/SECONDS
