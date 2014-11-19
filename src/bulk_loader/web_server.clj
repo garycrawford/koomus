@@ -4,7 +4,6 @@
   (:require
     [com.stuartsierra.component :as component]
     [compojure.route :as route]
-    [ring.middleware.json :as middleware]
     [ring.adapter.jetty :as jetty]
     [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
     [bulk-loader.neo :refer [insert-image]]))

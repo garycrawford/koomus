@@ -19,7 +19,15 @@
                  [org.clojars.hozumi/clj-commons-exec "1.0.7"]
                  [metrics-clojure "2.3.0"]
                  [metrics-clojure-jvm "2.3.0"]
-                 [metrics-clojure-graphite "2.3.0"]]
+                 [metrics-clojure-graphite "2.3.0"]
+                 [org.clojars.s450r1/dcm4che-imageio "2.0.23"]
+                 [org.clojars.s450r1/dcm4che-image "2.0.23"]
+                 [org.clojars.s450r1/dcm4che-core "2.0.23"]
+                 [org.clojars.s450r1/dcm4che-net "2.0.23"]
+                 [javax.media/jai_imageio "1.1"]
+                 [com.revelytix.logbacks/slf4j-log4j12 "1.0.0"]
+                 [clj-http "1.0.1"]
+                 [cheshire "5.3.1"]]
   :profiles {:dev {:env {:redis-conf-path "/etc/redis/"
                          :redis-start-cmd "redis-server"
                          :host "127.0.0.1"
@@ -39,4 +47,5 @@
                    :all (constantly true)}
   :resource-paths ["test/resources"]
   :aliases {"omni" ["do" ["clean"] ["ancient"] ["kibit"] ["bikeshed"] ["eastwood"]]}
-  :jvm-opts  ["-Xms2g" "-Xmx4g"])
+  :jvm-opts  ["-Xms2g" "-Xmx4g"]
+  :repositories [["imageio" "http://maven.geotoolkit.org/"]])

@@ -15,6 +15,7 @@
     (component/start-system this components))
   (stop [this]
     (component/stop-system this components)))
+
 (defn new-bulk-loader-system
   "Constructs a component system"
   []
