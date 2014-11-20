@@ -17,7 +17,7 @@
                  [ring/ring-defaults "0.1.2"]
                  [com.taoensso/carmine "2.7.1"]
                  [org.clojars.hozumi/clj-commons-exec "1.0.7"]
-                 [koomus.trees "0.1.0-SNAPSHOT"]]
+                 [koomus.trees "0.1.14-SNAPSHOT"]]
   :profiles {:dev {:env {:redis-conf-path "/etc/redis/"
                          :redis-start-cmd "redis-server"
                          :host "127.0.0.1"
