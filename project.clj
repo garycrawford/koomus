@@ -17,9 +17,7 @@
                  [ring/ring-defaults "0.1.2"]
                  [com.taoensso/carmine "2.7.1"]
                  [org.clojars.hozumi/clj-commons-exec "1.0.7"]
-                 [metrics-clojure "2.3.0"]
-                 [metrics-clojure-jvm "2.3.0"]
-                 [metrics-clojure-graphite "2.3.0"]]
+                 [koomus.trees "0.1.14-SNAPSHOT"]]
   :profiles {:dev {:env {:redis-conf-path "/etc/redis/"
                          :redis-start-cmd "redis-server"
                          :host "127.0.0.1"
@@ -31,7 +29,8 @@
                              [lein-kibit "0.0.8"]
                              [lein-bikeshed "0.1.8"]
                              [jonase/eastwood "0.1.4"]
-                             [lein-environ "1.0.0"]]
+                             [lein-environ "1.0.0"]
+                             [lein-checkouts "1.1.0"]]
                    :dependencies [[midje "1.6.3"]
                                   [org.clojure/tools.namespace "0.2.7"]]}}
   :test-selectors {:default (complement :local-only)
