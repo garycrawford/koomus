@@ -29,8 +29,7 @@
                              [lein-kibit "0.0.8"]
                              [lein-bikeshed "0.1.8"]
                              [jonase/eastwood "0.1.4"]
-                             [lein-environ "1.0.0"]
-                             [lein-checkouts "1.1.0"]]
+                             [lein-environ "1.0.0"]]
                    :dependencies [[midje "1.6.3"]
                                   [org.clojure/tools.namespace "0.2.7"]]}}
   :test-selectors {:default (complement :local-only)
