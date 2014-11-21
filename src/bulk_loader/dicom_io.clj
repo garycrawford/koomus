@@ -187,14 +187,14 @@ maps."
 
 (defn- pixel-entry
   [z y pixels]
-  (map-indexed (fn [x value] (vector [x y z] {:v value})) pixels))
+  (map-indexed (fn [x value] (hash-map [x y z] {:v value})) pixels))
 
 (defn build-pixels
   [path slice-index]
   (let [pixels (load-image-data path)
         z slice-index
         rows (partition 512 pixels)]
-    (map-indexed (fn [y row] (pixel-entry z y row)) rows)))
+    (into {} (apply concat (map-indexed (fn [y row] (pixel-entry z y row)) rows)))))
 
 (defn slice-order
   [file]

@@ -27,7 +27,8 @@
                  [javax.media/jai_imageio "1.1"]
                  [com.revelytix.logbacks/slf4j-log4j12 "1.0.0"]
                  [clj-http "1.0.1"]
-                 [cheshire "5.3.1"]]
+                 [cheshire "5.3.1"]
+                 [org.clojure/algo.generic "0.1.2"]]
   :profiles {:dev {:env {:redis-conf-path "/etc/redis/"
                          :redis-start-cmd "redis-server"
                          :host "127.0.0.1"

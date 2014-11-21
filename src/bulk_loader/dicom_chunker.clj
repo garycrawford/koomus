@@ -1,46 +1,46 @@
 (ns bulk-loader.dicom-chunker
-  (:require [bulk-loader.dicom-io :as io]))
+  (:require [bulk-loader.dicom-io :as io]
+            [clojure.algo.generic.functor :as algo]))
 
-(def dir "/opt/dev/koomus/resources/IMG00000")
+(def dir "/Users/gcrawfor/Projects/koomus-ops/dev/koomus/resources/IMG00000")
 
-(defn generate-keys
+(defn potential-neighbour-keys
   [[x y z]]
-  (vector
-    (vector (inc x) y z)
-    (vector (dec x) y z)
-    (vector x (inc y) z)
-    (vector x (dec y) z)
-    (vector x (inc y) z)
-    (vector x (dec y) z)
-    
+  (merge
+    {:+xΔ (vector (inc x) y z)}
+    {:-xΔ (vector (dec x) y z)}
+    {:+yΔ (vector x (inc y) z)}
+    {:-yΔ (vector x (dec y) z)}
+    {:+zΔ (vector x y (inc z))}
+    {:-zΔ (vector x y (dec z))}))
 
-    ))
+(defn- upgrade-pixel
+  [mrg source-id target-id label]
+  (when-let [{tv :v :as target} (mrg target-id)]
+    (let [{sv :v :as source} (mrg source-id)]
+      (assoc source label (- sv tv)))))
 
 (defn get-first-slice-data
   [path]
   (let [[[_ slice-path-1] [_ slice-path-2]] (io/get-slices path 0 2)
         one (io/build-pixels slice-path-1 0)
-        two (io/build-pixels slice-path-2 1)]
+        two (io/build-pixels slice-path-2 1)
+        mrg (merge one two)]
 
-    (doseq [x (range 512)
-            y (range 512)]
-      (let [k (vector x y 0)]
-        (when ) 
-        )
-      )
-    ))
+    (for [x (range 20)
+          y (range 20)
+          z (range 1)
+          :let [current (vector x y z)]]
+      (let [neighbour-keys (potential-neighbour-keys current)
+            linked (map (fn [[k v]] (upgrade-pixel mrg current v k)) neighbour-keys)]
+         (filter (complement nil?) linked)))))
 
 
 
 
-(client/post "http://127.0.0.1:8085/api/voxel" {:form-params {:a "b"} 
-                                                :content-type :json})
+; (client/post "http://127.0.0.1:8085/api/voxel" {:form-params {:a "b"} 
+;                                                 :content-type :json})
 
 ;; this is how Hippo will consume the values sent to it (i.e. `(apply hash-map request-param)`)
 (def id [0 0 0])
 (def p-val {:v 123 :-xΔ 123 :+xΔ 13 :+yΔ 30 :-yΔ 147 :+zΔ 21 :-zΔ 23})
-
-(->> [id p-val]
-    generate-string
-    parse-string
-    (apply hash-map))
