@@ -18,8 +18,10 @@
       {label (- sv tv)})))
 
 (defn get-slice-data
-  [path start-slice-index slice-count focus-index]
-  (let [mrg (io/get-pixels-for-slices path start-slice-index slice-count)]
+  [path focus-index]
+  (let [start-index (if (= focus-index 0) 0 (dec focus-index))
+        slice-count (if (= focus-index 0) 2 3)
+        mrg (io/get-pixels-for-slices path start-index slice-count)]
     (for [x (range 512)
           y (range 512)
           :let [current (vector x y focus-index)]]
