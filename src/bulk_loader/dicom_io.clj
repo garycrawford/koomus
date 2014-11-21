@@ -205,7 +205,8 @@ maps."
   (let [files (rest (file-seq (io/file path)))]
     (sort-by first (pmap #(slice-order %) files))))
 
-(defn get-slices
+(defn get-pixels-for-slices
   [path start count]
-  (let [files (order-files-by-slice path)]
-    (take count (drop start files))))
+  (let [files (order-files-by-slice path)
+        paths (take count (drop start files))]
+    (apply merge (map (fn [[id path]] (build-pixels path (dec id))) paths))))
