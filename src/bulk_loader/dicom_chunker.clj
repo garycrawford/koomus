@@ -16,9 +16,9 @@
 
 (defn- upgrade-pixel
   [mrg source-id target-id label]
-  (when-let [{tv :v :as target} (mrg target-id)]
-    (let [{sv :v :as source} (mrg source-id)]
-      (assoc source label (- sv tv)))))
+  (when-let [{tv :v} (mrg target-id)]
+    (let [{sv :v} (mrg source-id)]
+      {label (- sv tv)})))
 
 (defn get-first-slice-data
   [path]
@@ -27,13 +27,15 @@
         two (io/build-pixels slice-path-2 1)
         mrg (merge one two)]
 
-    (for [x (range 20)
-          y (range 20)
-          z (range 1)
+    (for [x (range 512)
+          y (range 512)
+          z (range 2)
           :let [current (vector x y z)]]
       (let [neighbour-keys (potential-neighbour-keys current)
-            linked (map (fn [[k v]] (upgrade-pixel mrg current v k)) neighbour-keys)]
-         (filter (complement nil?) linked)))))
+            deltas (map (fn [[k v]] (upgrade-pixel mrg current v k)) neighbour-keys)
+            linked (into {} (conj deltas (mrg current)))]
+       linked
+        ))))
 
 
 
