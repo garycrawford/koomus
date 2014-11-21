@@ -5,12 +5,11 @@
     [com.stuartsierra.component :as component]
     [compojure.route :as route]
     [ring.adapter.jetty :as jetty]
-    [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
-    [bulk-loader.neo :refer [insert-image]]))
+    [ring.middleware.defaults :refer [wrap-defaults api-defaults]]))
 
 (defroutes app-routes
   (context "/api" []
-    (GET "/image" {{file-name :file-name} :params} (insert-image file-name "store")) 
+    (GET "/image" {{file-name :file-name} :params} {:status 200 :body (str "<p>" file-name "</p>")}) 
   (route/resources "/")
   (route/not-found "<h1>Not Found</h1>")))
 
