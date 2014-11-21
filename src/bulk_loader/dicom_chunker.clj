@@ -34,13 +34,3 @@
             deltas (map (fn [[k v]] (upgrade-pixel mrg current v k)) neighbour-keys)
             linked (into {} (conj deltas (mrg current)))]
        (vector current linked)))))
-
-
-
-
-; (client/post "http://127.0.0.1:8085/api/voxel" {:form-params {:a "b"} 
-;                                                 :content-type :json})
-
-;; this is how Hippo will consume the values sent to it (i.e. `(apply hash-map request-param)`)
-(def id [0 0 0])
-(def p-val {:v 123 :-xΔ 123 :+xΔ 13 :+yΔ 30 :-yΔ 147 :+zΔ 21 :-zΔ 23})
