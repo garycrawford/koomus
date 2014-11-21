@@ -6,13 +6,12 @@
 
 (defn potential-neighbour-keys
   [[x y z]]
-  (merge
-    {:+xΔ (vector (inc x) y z)}
-    {:-xΔ (vector (dec x) y z)}
-    {:+yΔ (vector x (inc y) z)}
-    {:-yΔ (vector x (dec y) z)}
-    {:+zΔ (vector x y (inc z))}
-    {:-zΔ (vector x y (dec z))}))
+    {:+xΔ (vector (inc x) y z)
+     :-xΔ (vector (dec x) y z)
+     :+yΔ (vector x (inc y) z)
+     :-yΔ (vector x (dec y) z)
+     :+zΔ (vector x y (inc z))
+     :-zΔ (vector x y (dec z))})
 
 (defn- upgrade-pixel
   [mrg source-id target-id label]
@@ -27,15 +26,14 @@
         two (io/build-pixels slice-path-2 1)
         mrg (merge one two)]
 
-    (for [x (range 512)
-          y (range 512)
-          z (range 2)
+    (for [x (range 12)
+          y (range 12)
+          z (range 1)
           :let [current (vector x y z)]]
       (let [neighbour-keys (potential-neighbour-keys current)
             deltas (map (fn [[k v]] (upgrade-pixel mrg current v k)) neighbour-keys)
             linked (into {} (conj deltas (mrg current)))]
-       linked
-        ))))
+       (vector current linked)))))
 
 
 
