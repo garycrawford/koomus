@@ -29,3 +29,8 @@
             deltas (map (fn [[k v]] (generate-delta mrg current v k)) neighbour-keys)
             linked (into {} (conj deltas (mrg current)))]
        (vector current linked)))))
+
+(defn orchestrate
+  [path]
+  (for [x (range 221)]
+    (get-slice-data path x)))
