@@ -21,10 +21,9 @@
   [path]
   (let [mrg (io/get-pixels-for-slices path 0 2)]
 
-    (for [x (range 12)
-          y (range 12)
-          z (range 2)
-          :let [current (vector x y z)]]
+    (for [x (range 512)
+          y (range 512)
+          :let [current (vector x y 0)]]
       (let [neighbour-keys (potential-neighbour-keys current)
             deltas (map (fn [[k v]] (generate-delta mrg current v k)) neighbour-keys)
             linked (into {} (conj deltas (mrg current)))]
