@@ -17,13 +17,12 @@
     (let [{sv :v} (mrg source-id)]
       {label (- sv tv)})))
 
-(defn get-first-slice-data
-  [path]
-  (let [mrg (io/get-pixels-for-slices path 0 2)]
-
+(defn get-slice-data
+  [path start-slice-index slice-count focus-index]
+  (let [mrg (io/get-pixels-for-slices path start-slice-index slice-count)]
     (for [x (range 512)
           y (range 512)
-          :let [current (vector x y 0)]]
+          :let [current (vector x y focus-index)]]
       (let [neighbour-keys (potential-neighbour-keys current)
             deltas (map (fn [[k v]] (generate-delta mrg current v k)) neighbour-keys)
             linked (into {} (conj deltas (mrg current)))]
