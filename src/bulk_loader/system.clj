@@ -3,7 +3,7 @@
     [com.stuartsierra.component :as component]
     [bulk-loader.web-server :as web-server]
     [bulk-loader.redis :as redis]
-    [bulk-loader.metrics :as metrics]
+    [koomus.trees.metrics :as metrics]
     [environ.core :as environ]
   ))
 

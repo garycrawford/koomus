@@ -17,9 +17,6 @@
                  [ring/ring-defaults "0.1.2"]
                  [com.taoensso/carmine "2.7.1"]
                  [org.clojars.hozumi/clj-commons-exec "1.0.7"]
-                 [metrics-clojure "2.3.0"]
-                 [metrics-clojure-jvm "2.3.0"]
-                 [metrics-clojure-graphite "2.3.0"]
                  [org.clojars.s450r1/dcm4che-imageio "2.0.23"]
                  [org.clojars.s450r1/dcm4che-image "2.0.23"]
                  [org.clojars.s450r1/dcm4che-core "2.0.23"]
@@ -28,7 +25,8 @@
                  [com.revelytix.logbacks/slf4j-log4j12 "1.0.0"]
                  [clj-http "1.0.1"]
                  [cheshire "5.3.1"]
-                 [org.clojure/algo.generic "0.1.2"]]
+                 [org.clojure/algo.generic "0.1.2"]
+                 [koomus.trees "0.1.14-SNAPSHOT"]]
   :profiles {:dev {:env {:redis-conf-path "/etc/redis/"
                          :redis-start-cmd "redis-server"
                          :host "127.0.0.1"
