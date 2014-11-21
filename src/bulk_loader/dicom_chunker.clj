@@ -2,8 +2,6 @@
   (:require [bulk-loader.dicom-io :as io]
             [clojure.algo.generic.functor :as algo]))
 
-(def dir "/Users/gcrawfor/Projects/koomus-ops/dev/koomus/resources/IMG00000")
-
 (defn potential-neighbour-keys
   [[x y z]]
     {:+xΔ (vector (inc x) y z)
