@@ -2,6 +2,8 @@
   (:require [bulk-loader.dicom-io :as io]
             [clojure.algo.generic.functor :as algo]))
 
+(def counter (atom 0N))
+
 (defn- potential-neighbour-keys
   [[x y z]]
     {:+xΔ (vector (inc x) y z)
@@ -22,15 +24,17 @@
   (let [start-index (if (= focus-index 0) 0 (dec focus-index))
         slice-count (if (= focus-index 0) 2 3)
         mrg (io/get-pixels-for-slices path start-index slice-count)]
-    (for [x (range 512)
-          y (range 512)
-          :let [current (vector x y focus-index)]]
-      (let [neighbour-keys (potential-neighbour-keys current)
-            deltas (map (fn [[k v]] (generate-delta mrg current v k)) neighbour-keys)
-            linked (into {} (conj deltas (mrg current)))]
-       (vector current linked)))))
+    (doseq [x (range 512)
+            y (range 512)
+            :let [current (vector x y focus-index)
+                  neighbour-keys (potential-neighbour-keys current)
+                  deltas (map (fn [[k v]] (generate-delta mrg current v k)) neighbour-keys)
+                  linked (into {} (conj deltas (mrg current)))]]
+       (swap! counter inc)
+       (vector current linked))))
 
 (defn orchestrate
   [path]
-  (for [x (range 221)]
-    (get-slice-data path x)))
+  (dotimes [x 3]
+    (get-slice-data path x)
+    (println @counter)))
