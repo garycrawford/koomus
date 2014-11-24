@@ -9,6 +9,7 @@
 
 (defroutes app-routes
   (context "/api" []
+    ;; api/image?file-name=foo       
     (GET "/image" {{file-name :file-name} :params} {:status 200 :body (str "<p>" file-name "</p>")}) 
   (route/resources "/")
   (route/not-found "<h1>Not Found</h1>")))

@@ -1,6 +1,4 @@
-(ns #^{:doc "Manipulate DICOM files"
-       :author "Kevin A. Archie <karchie@wustl.edu>"}
-  bulk-loader.dicom-io
+(ns bulk-loader.extract
   (:import (java.io BufferedInputStream
 		    File
 		    FileInputStream
@@ -23,7 +21,8 @@
             [clojure.string :as string]
             [clojure.set]
             [cheshire.core :refer [generate-string parse-string]]
-            [clj-http.client :as client])
+            [clj-http.client :as client]
+            [clojure.core.memoize :as memo])
   (:use clojure.test))
 
 (def
@@ -196,7 +195,9 @@ maps."
         rows (partition 512 pixels)]
     (into {} (apply concat (map-indexed (fn [y row] (pixel-entry z y row)) rows)))))
 
-(defn slice-order
+(def build-pixels-fifo (memo/fifo build-pixels :fifo/threshold 14))
+
+(defn- slice-order
   [file]
   (vector (java.lang.Integer/parseInt (first (get-image-number (get-metadata file)))) (.getPath file)))
 
@@ -205,8 +206,10 @@ maps."
   (let [files (rest (file-seq (io/file path)))]
     (sort-by first (pmap #(slice-order %) files))))
 
+(def order-files-by-slice-fifo (memo/fifo order-files-by-slice :fifo/threshold 1))
+
 (defn get-pixels-for-slices
   [path start count]
-  (let [files (order-files-by-slice path)
+  (let [files (order-files-by-slice-fifo path)
         paths (take count (drop start files))]
-    (apply merge (map (fn [[id path]] (build-pixels path (dec id))) paths))))
+    (apply merge (map (fn [[id path]] (build-pixels-fifo path (dec id))) paths))))

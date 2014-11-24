@@ -21,8 +21,8 @@
                  [com.revelytix.logbacks/slf4j-log4j12 "1.0.0"]
                  [clj-http "1.0.1"]
                  [cheshire "5.3.1"]
-                 [org.clojure/algo.generic "0.1.2"]
-                 [koomus.trees "0.1.14-SNAPSHOT"]]
+                 [koomus.trees "0.1.14-SNAPSHOT"]
+                 [org.clojure/core.memoize "0.5.6"]]
   :profiles {:dev {:env {:host "127.0.0.1"
                          :port 1245
                          :graphite-host "127.0.0.1"}
@@ -40,5 +40,5 @@
                    :all (constantly true)}
   :resource-paths ["test/resources"]
   :aliases {"omni" ["do" ["clean"] ["ancient"] ["kibit"] ["bikeshed"] ["eastwood"]]}
-  :jvm-opts  ["-Xms2g" "-Xmx4g"]
+  :jvm-opts  ["-Xms2g" "-Xmx8g"]
   :repositories [["imageio" "http://maven.geotoolkit.org/"]])
