@@ -34,7 +34,10 @@
                              [jonase/eastwood "0.1.4"]
                              [lein-environ "1.0.0"]]
                    :dependencies [[midje "1.6.3"]
-                                  [org.clojure/tools.namespace "0.2.7"]]}}
+                                  [org.clojure/tools.namespace "0.2.7"]]}
+             :uberjar {:aot :all}}
+  :main bulk-loader.zygote
+
   :test-selectors {:default (complement :local-only)
                    :local-only :local-only
                    :all (constantly true)}
