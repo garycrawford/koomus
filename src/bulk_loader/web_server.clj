@@ -6,7 +6,8 @@
     [bulk-loader.queue :as q]
     [compojure.route :as route]
     [ring.adapter.jetty :as jetty]
-    [ring.middleware.defaults :refer [wrap-defaults api-defaults]]))
+    [ring.middleware.defaults :refer [wrap-defaults api-defaults]])
+  (:import [java.lang.Integer]))
 
 (defn- dispatch
   [path queue]
@@ -19,6 +20,7 @@
     (context "/api" []
              ;; api/image?file-name=foo
              (GET "/image" {{path :path} :params} (dispatch path queue))
+             (GET "/healthcheck" [] {:status 200 :body "<p>alive!</p>"})
              (route/resources "/")
              (route/not-found "<h1>Not Found</h1>"))))
 
@@ -27,13 +29,16 @@
   (-> (things queue)
       (wrap-defaults api-defaults)))
 
-(defrecord WebServer [host port queue] 
+(defrecord WebServer [queue host port]
   component/Lifecycle
   (start [this]
-    (assoc this :server (jetty/run-jetty (handler queue) {:port port :join? false})))
+    (if (and port host) 
+      (let [p (Integer/parseInt port)]
+        (assoc this :server (jetty/run-jetty (handler queue) {:port p :join? false})))
+      this))
   (stop [this]
     (.stop (:server this))
     this))
 
-(defn new-web-server [host port] 
+(defn new-web-server [host port]
   (map->WebServer {:host host :port port}))
