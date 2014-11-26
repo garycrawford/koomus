@@ -13,6 +13,7 @@
         (let [result (new-orchestrator)]
           (keys result) => (just :queue))))
 
+;; this var shadows a private funtion which needs to be tested
 (def shadow-get-pixel-slices #'bulk-loader.orchestrator/get-slice-pixels)
 
 (facts "pixel relationships should be calculated over a 3 layer sliding window"
@@ -31,6 +32,7 @@
         (provided
           (io/get-pixels-for-slices ..path.. 9 3) => ..result..)))
 
+;; this var shadows a private funtion which needs to be tested
 (def shadow-load-handler #'bulk-loader.orchestrator/load-handler)
 
 (facts "the load handler coordinated ETL"
