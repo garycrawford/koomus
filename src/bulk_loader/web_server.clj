@@ -14,7 +14,7 @@
   (q/qpush queue path)
   {:status 200 :body (str "<p>" path "</p>")})
 
-(defn things
+(defn generate-routes
   [queue]
   (defroutes app-routes
     (context "/api" []
@@ -26,7 +26,7 @@
 
 (defn handler
   [queue]
-  (-> (things queue)
+  (-> (generate-routes queue)
       (wrap-defaults api-defaults)))
 
 (defrecord WebServer [queue host port]
