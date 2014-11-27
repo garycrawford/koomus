@@ -20,7 +20,7 @@
 
 (defn load-dicom
   [path]
-  (let [work (partition-all 55 (range 220))]
+  (let [work (partition-all 110 (range 220))]
     (pmap (fn [workload]
             (doall
               (map
