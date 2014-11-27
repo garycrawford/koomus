@@ -37,10 +37,6 @@
                                   [org.clojure/tools.namespace "0.2.7"]]}
              :uberjar {:aot :all}}
   :main bulk-loader.zygote
-
-  :test-selectors {:default (complement :local-only)
-                   :local-only :local-only
-                   :all (constantly true)}
   :resource-paths ["test/resources"]
   :aliases {"omni" ["do" ["clean"] ["ancient"] ["kibit"] ["bikeshed"] ["eastwood"]]}
   :jvm-opts  ["-Xms2g" "-Xmx8g"]

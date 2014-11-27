@@ -35,8 +35,8 @@
 ;; this var shadows a private funtion which needs to be tested
 (def shadow-load-handler #'bulk-loader.orchestrator/load-handler)
 
-(facts "the load handler coordinated ETL"
-  (fact "order of call will be extract -> transform -> load"
+(facts "the load handler coordinates ETL"
+  (fact "functions will be called in extract -> transform -> load order"
         (shadow-load-handler ..path.. 0) => ..result..
         (provided
           (io/get-pixels-for-slices ..path.. 0 2) => ..pixels..
@@ -47,6 +47,6 @@
   (fact "each ETL function will be called 221 times"
         (load-dicom ..path..) => _
         (provided
-          (io/get-pixels-for-slices ..path.. _ _) => _ :times 221
-          (tf/generate-pixel-nodes _ _) => _ :times 221
-          (l/send-msg _ _) => _ :times 221)))
+          (io/get-pixels-for-slices ..path.. _ _) => _ :times 220
+          (tf/generate-pixel-nodes _ _) => _ :times 220
+          (l/send-msg _ _) => _ :times 220)))
