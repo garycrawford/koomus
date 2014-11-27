@@ -45,7 +45,7 @@
 
 (facts "pixels will be iterated over"
   (fact "each ETL function will be called 221 times"
-        (load-dicom ..path..) => _
+        (load-dicom ..path.. 220) => _
         (provided
           (io/get-pixels-for-slices ..path.. _ _) => _ :times 220
           (tf/generate-pixel-nodes _ _) => _ :times 220

@@ -19,8 +19,8 @@
       (l/send-msg slice-id)))
 
 (defn load-dicom
-  [path]
-  (let [work (partition-all 110 (range 220))]
+  [path slices]
+  (let [work (partition-all 55 (range slices))]
     (pmap (fn [workload]
             (doall
               (map
