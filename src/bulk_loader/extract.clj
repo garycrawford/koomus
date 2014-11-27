@@ -195,7 +195,7 @@ maps."
         rows (partition 512 pixels)]
     (into {} (apply concat (map-indexed (fn [y row] (pixel-entry z y row)) rows)))))
 
-(def build-pixels-fifo (memo/fifo build-pixels :fifo/threshold 14))
+(def build-pixels-fifo (memo/fifo build-pixels :fifo/threshold 7))
 
 (defn- slice-order
   [file]
