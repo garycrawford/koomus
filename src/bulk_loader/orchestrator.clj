@@ -1,8 +1,8 @@
 (ns bulk-loader.orchestrator
   (:require [com.stuartsierra.component :as component]
-            [bulk-loader.extract :as io]
-            [bulk-loader.transform :as tf]
-            [bulk-loader.load :as l]
+            [bulk-loader.extractor :as io]
+            [bulk-loader.transformer :as tf]
+            [bulk-loader.loader :as l]
             [bulk-loader.queue :as q]))
 
 (defn- get-slice-pixels

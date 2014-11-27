@@ -1,4 +1,4 @@
-(ns bulk-loader.transform)
+(ns bulk-loader.transformer)
 
 (defn- potential-neighbour-keys
   [current]

@@ -1,9 +1,9 @@
 (ns bulk-loader.unit.orchestrator
   (:use [midje.sweet :only (facts fact => just anything)])
   (:require [clojure.test :refer :all]
-            [bulk-loader.extract :as io]
-            [bulk-loader.transform :as tf]
-            [bulk-loader.load :as l]
+            [bulk-loader.extractor :as io]
+            [bulk-loader.transformer :as tf]
+            [bulk-loader.loader :as l]
             [bulk-loader.orchestrator :refer :all]))
 
 (def _ anything)
