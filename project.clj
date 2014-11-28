@@ -5,6 +5,7 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [environ "1.0.0"]
                  [robert/hooke "1.3.0"]
+                 [clj-logging-config "1.9.12"]
                  [com.taoensso/timbre "3.3.1"]
                  [cheshire "5.3.1"]
                  [com.stuartsierra/component "0.2.2"]

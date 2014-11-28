@@ -7,7 +7,10 @@
     [compojure.route :as route]
     [ring.adapter.jetty :as jetty]
     [ring.middleware.defaults :refer [wrap-defaults api-defaults]])
-  (:import [java.lang.Integer]))
+  (:import [java.lang.Integer])
+  (:use
+    clojure.tools.logging
+    clj-logging-config.log4j))
 
 (defn- dispatch
   [path queue]
@@ -41,4 +44,5 @@
     this))
 
 (defn new-web-server [host port]
+  (info {:action "start-component" :appname "koomus.bulk-loader" :msg "Starting WebServer"})
   (map->WebServer {:host host :port port}))
