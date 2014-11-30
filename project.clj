@@ -5,6 +5,7 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [environ "1.0.0"]
                  [robert/hooke "1.3.0"]
+                 [clj-logging-config "1.9.12"]
                  [com.taoensso/timbre "3.3.1"]
                  [cheshire "5.3.1"]
                  [com.stuartsierra/component "0.2.2"]
@@ -34,11 +35,9 @@
                              [jonase/eastwood "0.1.4"]
                              [lein-environ "1.0.0"]]
                    :dependencies [[midje "1.6.3"]
-                                  [org.clojure/tools.namespace "0.2.7"]]}}
-  :test-selectors {:default (complement :local-only)
-                   :local-only :local-only
-                   :all (constantly true)}
-  :resource-paths ["test/resources"]
+                                  [org.clojure/tools.namespace "0.2.7"]]}
+             :uberjar {:aot :all}}
+  :main bulk-loader.zygote
   :aliases {"omni" ["do" ["clean"] ["ancient"] ["kibit"] ["bikeshed"] ["eastwood"]]}
   :jvm-opts  ["-Xms2g" "-Xmx8g"]
   :repositories [["imageio" "http://maven.geotoolkit.org/"]])

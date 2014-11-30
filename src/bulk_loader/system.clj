@@ -2,11 +2,13 @@
   (:require 
     [com.stuartsierra.component :as component]
     [bulk-loader.web-server :as web-server]
+    [bulk-loader.queue :as queue]
+    [bulk-loader.orchestrator :as orchestrator]
+    [bulk-loader.logger :as logger]
     [koomus.trees.metrics :as metrics]
-    [environ.core :as environ]
-  ))
+    [environ.core :as environ]))
 
-(def components [:web-server :metrics])
+(def components [:web-server :metrics :queue :orchestrator :logger])
 
 (defrecord Bulk-Loader-System []
   component/Lifecycle
@@ -20,6 +22,13 @@
   []
   (map->Bulk-Loader-System
     {
-     :web-server (web-server/new-web-server (environ/env :host) (environ/env :port))
+     :web-server (component/using
+                   (web-server/new-web-server (environ/env :host) (environ/env :port))
+                   {:queue :queue})
      :metrics (metrics/new-metrics (environ/env :graphite-host))
+     :queue (queue/new-queue)
+     :orchestrator (component/using
+                     (orchestrator/new-orchestrator)
+                     {:queue :queue})
+     :logger (logger/new-logger)
     }))

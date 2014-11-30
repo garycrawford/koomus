@@ -1,9 +1,9 @@
 (ns bulk-loader.unit.system
-  (:use [midje.sweet :only (facts fact contains => anything)])
+  (:use [midje.sweet :only (facts fact => just)])
   (:require [clojure.test :refer :all]
-            [bulk-loader.system :refer :all]
-            [bulk-loader.web-server :refer :all]))
+            [bulk-loader.system :refer :all]))
 
 (facts "constructing the component system"
-  (fact "a system map should be generated"
-       (new-bulk-loader-system) => (contains {:web-server anything})))
+  (fact "a system component should be generated"
+        (let [result (new-bulk-loader-system)]
+          (keys result) => (just :web-server :metrics :queue :orchestrator :logger :in-any-order))))

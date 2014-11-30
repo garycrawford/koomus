@@ -5,15 +5,24 @@
 
 ## Usage
 
-N.B. this is nothing more than a spike atm - please do not use!
+### Start the system
+#### From REPL
+1. Start repl: `lein repl`
+2. Move to user namespace: `(ns user)`
+3. Start component system: `(reset)`
 
-Use `lein run` to launch the app using the hardcoded image path. This will create and populate a directory called `store` with Neo4j data. By adjusting the neo4j property `org.neo4j.server.database.location` in Neo4j's `conf/neo4j-server.properties` file to point to this directory the image data will be loaded into Neo4j with the normal start process.
+#### As jar
+1. Generate uberjar with lein: `lein uberjar`
+2. Locate standalone jar: `ls target`
+3. Launch jar: `java -Dhost=localhost -Dport=1234 -jar target/bulk-loader-0.1.0-SNAPSHOT-standalone.jar`
 
-*N.B. `allow_store_upgrade=true` must be set in `conf/neo4j.properties` at the moment due to a versioning problem to be resolved.*
+### Run tests
+* To run all tests: `lein midje`
+* To avoid slow tests: `lein midje :filter -slow`
 
-I will pull this together into a shell script for launching some point soon.
-
-To run the tests, use `lein midje`
+### Process Dicom
+1. Start system: `From REPL` or `As jar` above
+2. Send image to system with: `curl http://localhost:1234/api/images?path={path to dicom directory}`
 
 ## License
 

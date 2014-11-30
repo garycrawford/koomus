@@ -1,7 +1,9 @@
 (ns bulk-loader.orchestrator
-  (:require [bulk-loader.extract :as io]
-            [bulk-loader.transform :as tf]
-            [bulk-loader.load :as l]))
+  (:require [com.stuartsierra.component :as component]
+            [bulk-loader.extractor :as io]
+            [bulk-loader.transformer :as tf]
+            [bulk-loader.loader :as l]
+            [bulk-loader.queue :as q]))
 
 (defn- get-slice-pixels
   [path slice-id]
@@ -17,11 +19,22 @@
       (l/send-msg slice-id)))
 
 (defn load-dicom
-  [path]
-  (let [work (partition-all 55 (range 221))]
+  [path slices]
+  (let [work (partition-all 55 (range slices))]
     (pmap (fn [workload]
             (doall
               (map
                 (fn [slice-id] (load-handler path slice-id))
                 workload)))
           work)))
+
+(defrecord Orchestrator [queue] 
+  component/Lifecycle
+  (start [this]
+    (q/register queue load-dicom)
+    this)
+  (stop [this]
+    this))
+
+(defn new-orchestrator []
+  (map->Orchestrator {}))

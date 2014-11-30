@@ -1,4 +1,4 @@
-(ns bulk-loader.extract
+(ns bulk-loader.extractor
   (:import (java.io BufferedInputStream
 		    File
 		    FileInputStream
@@ -195,7 +195,7 @@ maps."
         rows (partition 512 pixels)]
     (into {} (apply concat (map-indexed (fn [y row] (pixel-entry z y row)) rows)))))
 
-(def build-pixels-fifo (memo/fifo build-pixels :fifo/threshold 14))
+(def build-pixels-fifo (memo/fifo #'build-pixels :fifo/threshold 14))
 
 (defn- slice-order
   [file]
@@ -206,7 +206,7 @@ maps."
   (let [files (rest (file-seq (io/file path)))]
     (sort-by first (pmap #(slice-order %) files))))
 
-(def order-files-by-slice-fifo (memo/fifo order-files-by-slice :fifo/threshold 1))
+(def order-files-by-slice-fifo (memo/fifo #'order-files-by-slice :fifo/threshold 1))
 
 (defn get-pixels-for-slices
   [path start count]
