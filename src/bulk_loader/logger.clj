@@ -11,6 +11,16 @@
 
 (def app-name {:appname "bulk-loader"})
 (def uncached (merge {:action "uncached-access"} app-name))
+(def send-message (merge {:action "send-message"} app-name))
+
+(defn- log-send-msg
+  [f data slice-id]
+  (let [msg {:msg (format "message %1s sent with %2s pixels" slice-id (count data))}]
+    (-> msg
+        (merge send-message)
+        json/generate-string
+        log/debug) 
+    (f data slice-id)))
 
 (defn- log-uncached-access
   [f name args]
@@ -32,8 +42,7 @@
   (log-config/set-logger!)
   (hooke/add-hook #'extractor/order-files-by-slice #'log-uncached-order-files-by-slice)
   (hooke/add-hook #'extractor/build-pixels #'log-uncached-build-pixels)
-;  (hooke/add-hook #'loader/send-msg #'log-send-msg)
-  )
+  (hooke/add-hook #'loader/send-msg #'log-send-msg))
 
 (defrecord Logger []
   component/Lifecycle
