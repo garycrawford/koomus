@@ -4,10 +4,11 @@
     [bulk-loader.web-server :as web-server]
     [bulk-loader.queue :as queue]
     [bulk-loader.orchestrator :as orchestrator]
+    [bulk-loader.logger :as logger]
     [koomus.trees.metrics :as metrics]
     [environ.core :as environ]))
 
-(def components [:web-server :metrics :queue :orchestrator])
+(def components [:web-server :metrics :queue :orchestrator :logger])
 
 (defrecord Bulk-Loader-System []
   component/Lifecycle
@@ -29,4 +30,5 @@
      :orchestrator (component/using
                      (orchestrator/new-orchestrator)
                      {:queue :queue})
+     :logger (logger/new-logger)
     }))

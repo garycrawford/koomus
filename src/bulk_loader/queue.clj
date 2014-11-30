@@ -11,7 +11,7 @@
 (defn qpush
   [{h :handler m :memory :as this} msg]
   (swap! m conj msg) 
-  (.start (Thread. (fn [] (@h (qpop this))))))
+  (.start (Thread. (fn [] (@h (qpop this) 220)))))
 
 (defn register
   [{m :handler} handler-fn]
