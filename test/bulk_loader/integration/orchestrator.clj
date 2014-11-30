@@ -5,5 +5,5 @@
 
 (fact :slow "a node should exist for each of the (* 512 512 220) pixels in the image"
       (let [path (str (System/getProperty "user.dir") "/resources/IMG00000")
-            result (flatten (load-dicom path 3))]
-        (reduce + result) => 786432))
+            result (flatten (load-dicom path 4))]
+        (reduce + result) => 1048576))

@@ -22,7 +22,7 @@
 
 ### Process Dicom
 1. Start system: `From REPL` or `As jar` above
-2. Send image to system with: `curl http://localhost:1234/api/images?path={path to dicom directory}`
+2. Send image to system with: `curl --data "path={path_to_dicom_dir}" http://localhost:1234/api/images`
 
 ## License
 
