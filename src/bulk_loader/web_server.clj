@@ -3,6 +3,8 @@
     [compojure.core])
   (:require
     [com.stuartsierra.component :as component]
+    [ring.middleware.json :as json-response]
+    [ring.util.response :as util]
     [bulk-loader.queue :as blq]
     [compojure.route :as route]
     [ring.adapter.jetty :as jetty]
@@ -12,7 +14,7 @@
 (defn- dispatch
   [path queue]
   (blq/qpush queue path)
-  {:status 200 :body (str "<p>" path "</p>")})
+  (util/response {:path path :status "submitted"}))
 
 (defn generate-routes
   [queue]
@@ -20,13 +22,14 @@
     (context "/api" []
              ;; api/image?file-name=foo
              (GET "/image" {{path :path} :params} (dispatch path queue))
-             (GET "/healthcheck" [] {:status 200 :body "<p>alive!</p>"})
+             (GET "/healthcheck" [] (util/response {:status "alive!"}))
              (route/resources "/")
              (route/not-found "<h1>Not Found</h1>"))))
 
 (defn handler
   [queue]
   (-> (generate-routes queue)
+      (json-response/wrap-json-response)
       (wrap-defaults api-defaults)))
 
 (defrecord WebServer [queue host port]
