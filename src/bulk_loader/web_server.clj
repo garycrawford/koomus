@@ -20,8 +20,8 @@
   [queue]
   (defroutes app-routes
     (context "/api" []
-             ;; api/image?file-name=foo
-             (GET "/image" {{path :path} :params} (dispatch path queue))
+             ;; curl --data "path={file_path}" http://localhost:1234/api/images
+             (POST "/images" {{path :path} :params} (dispatch path queue))
              (GET "/healthcheck" [] (util/response {:status "alive!"}))
              (route/resources "/")
              (route/not-found "<h1>Not Found</h1>"))))
