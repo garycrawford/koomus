@@ -24,11 +24,11 @@
     {
      :web-server (component/using
                    (web-server/new-web-server (environ/env :host) (environ/env :port))
-                   {:queue :queue})
+                   [:queue])
      :metrics (metrics/new-metrics (environ/env :graphite-host))
      :queue (queue/new-queue)
      :orchestrator (component/using
                      (orchestrator/new-orchestrator)
-                     {:queue :queue})
+                     [:queue])
      :logger (logger/new-logger)
     }))
