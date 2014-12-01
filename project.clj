@@ -1,4 +1,4 @@
-(def feature-version "0.1")
+(def feature-version "0.0.0")
 (def build-version (or (System/getenv "SNAP_PIPELINE_COUNTER") "HANDBUILT"))
 (def release-version (format "%1s.%2s-SNAPSHOT" feature-version build-version))
 
@@ -38,17 +38,12 @@
                              [lein-bikeshed "0.1.8"]
                              [jonase/eastwood "0.1.4"]
                              [lein-environ "1.0.0"]
-                             [s3-wagon-private "1.1.2"]]
+                             [rplevy/lein-deploy-app "0.2.1"]]
                    :dependencies [[midje "1.6.3"]
                                   [org.clojure/tools.namespace "0.2.7"]]}
              :uberjar {:aot :all}}
   :main bulk-loader.zygote
   :aliases {"omni" ["do" ["clean"] ["ancient"] ["kibit"] ["bikeshed"] ["eastwood"]]}
   :jvm-opts  ["-Xms2g" "-Xmx8g"]
-  :repositories [["imageio" "http://maven.geotoolkit.org/"]
-                 ["snapshots"  {:url (System/getenv "WAGON_SNAPSHOTS_URL")
-                                :username (System/getenv "WAGON_USERNAME")
-                                :passphrase (System/getenv "WAGON_PASSPHRASE")}]
-                 ["releases"   {:url (System/getenv "WAGON_RELEASES_URL")
-                                :username (System/getenv "WAGON_USERNAME")
-                                :passphrase (System/getenv "WAGON_PASSPHRASE")}]])
+  :deploy-app  {:s3-bucket "s3p://koomus/releases" :creds :env}
+  :repositories [["imageio" "http://maven.geotoolkit.org/"]])
