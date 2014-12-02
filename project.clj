@@ -37,13 +37,11 @@
                              [lein-kibit "0.0.8"]
                              [lein-bikeshed "0.1.8"]
                              [jonase/eastwood "0.1.4"]
-                             [lein-environ "1.0.0"]
-                             [rplevy/lein-deploy-app "0.2.1"]]
+                             [lein-environ "1.0.0"]]
                    :dependencies [[midje "1.6.3"]
                                   [org.clojure/tools.namespace "0.2.7"]]}
              :uberjar {:aot :all}}
   :main bulk-loader.zygote
   :aliases {"omni" ["do" ["clean"] ["ancient"] ["kibit"] ["bikeshed"] ["eastwood"]]}
   :jvm-opts  ["-Xms2g" "-Xmx8g"]
-  :deploy-app  {:s3-bucket "s3p://koomus/releases" :creds :env}
   :repositories [["imageio" "http://maven.geotoolkit.org/"]])
