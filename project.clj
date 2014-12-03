@@ -27,10 +27,10 @@
                  [clj-http "1.0.1"]
                  [cheshire "5.3.1"]
                  [koomus.trees "0.1.14-SNAPSHOT"]
-                 [org.clojure/core.memoize "0.5.6"]]
-  :profiles {:dev {:env {:host "127.0.0.1"
-                         :port 1245
-                         :graphite-host "127.0.0.1"}
+                 [org.clojure/core.memoize "0.5.6"]
+                 [bidi "1.12.0"]
+                 [scenic "0.2.2"]]
+  :profiles {:dev {:env {:graphite-host "127.0.0.1"}
                    :source-paths  ["dev"]
                    :plugins [[lein-midje "3.1.3" ]
                              [lein-ancient "0.5.5"]
@@ -39,9 +39,11 @@
                              [jonase/eastwood "0.1.4"]
                              [lein-environ "1.0.0"]]
                    :dependencies [[midje "1.6.3"]
-                                  [org.clojure/tools.namespace "0.2.7"]]}
-             :uberjar {:aot :all}}
-  :main bulk-loader.zygote
+                                  [org.clojure/tools.namespace "0.2.7"]
+                                  [org.clojure/java.classpath "0.2.2"]]}
+             :uberjar {:aot :all
+                       :main bulk-loader.zygote}}
+
   :aliases {"omni" ["do" ["clean"] ["ancient"] ["kibit"] ["bikeshed"] ["eastwood"]]}
   :jvm-opts  ["-Xms2g" "-Xmx8g"]
   :repositories [["imageio" "http://maven.geotoolkit.org/"]])

@@ -1,0 +1,3 @@
+GET  /            home
+POST /images      add-image
+GET  /healthcheck healthcheck

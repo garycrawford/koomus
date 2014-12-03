@@ -25,4 +25,4 @@
     (dissoc this :memory)))
 
 (defn new-queue []
-  (->Queue))
+  (map->Queue {}))
