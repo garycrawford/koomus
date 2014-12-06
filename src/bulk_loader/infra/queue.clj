@@ -1,4 +1,4 @@
-(ns bulk-loader.queue
+(ns bulk-loader.infra.queue
   (:require 
     [com.stuartsierra.component :as component]))
 
@@ -25,4 +25,4 @@
     (dissoc this :memory)))
 
 (defn new-queue []
-  (->Queue))
+  (map->Queue {}))

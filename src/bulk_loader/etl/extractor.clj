@@ -1,4 +1,4 @@
-(ns bulk-loader.extractor
+(ns bulk-loader.etl.extractor
   (:import (java.io BufferedInputStream
 		    File
 		    FileInputStream

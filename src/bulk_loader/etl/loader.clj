@@ -1,4 +1,4 @@
-(ns bulk-loader.loader)
+(ns bulk-loader.etl.loader)
 
 (defn send-msg
   [data slice-id]

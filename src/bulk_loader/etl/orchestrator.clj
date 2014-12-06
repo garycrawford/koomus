@@ -1,9 +1,9 @@
-(ns bulk-loader.orchestrator
+(ns bulk-loader.etl.orchestrator
   (:require [com.stuartsierra.component :as component]
-            [bulk-loader.extractor :as io]
-            [bulk-loader.transformer :as tf]
-            [bulk-loader.loader :as l]
-            [bulk-loader.queue :as q]))
+            [bulk-loader.etl.extractor :as io]
+            [bulk-loader.etl.transformer :as tf]
+            [bulk-loader.etl.loader :as l]
+            [bulk-loader.infra.queue :as q]))
 
 (defn- get-slice-pixels
   [path slice-id]
