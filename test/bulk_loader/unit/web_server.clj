@@ -5,7 +5,5 @@
 
 (facts "constructing the web-server component"
   (fact "a web-server component should be generated"
-        (let [result (new-web-server "localhost" 1234)]
-          (keys result) => (just :queue :host :port :in-any-order)  
-          (:port result) => 1234
-          (:host result) => "localhost")))
+        (let [result (new-web-server)]
+          (keys result) => (just :handler))))

@@ -6,4 +6,4 @@
 (facts "constructing the component system"
   (fact "a system component should be generated"
         (let [result (new-bulk-loader-system)]
-          (keys result) => (just :web-server :metrics :queue :orchestrator :logger :in-any-order))))
+          (keys result) => (just :web-server :routes :handler :metrics :queue :orchestrator :logger :images-controller :in-any-order))))

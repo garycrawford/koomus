@@ -44,6 +44,7 @@
              :uberjar {:aot :all
                        :main bulk-loader.zygote}}
 
-  :aliases {"omni" ["do" ["clean"] ["ancient"] ["kibit"] ["bikeshed"] ["eastwood"]]}
+  :aliases {"krepl" ["do" ["clean"] ["repl"]]
+            "omni" ["do" ["clean"] ["ancient"] ["kibit"] ["bikeshed"] ["eastwood"]]}
   :jvm-opts  ["-Xms2g" "-Xmx8g"]
   :repositories [["imageio" "http://maven.geotoolkit.org/"]])

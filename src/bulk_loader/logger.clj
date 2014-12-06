@@ -1,7 +1,6 @@
 (ns bulk-loader.logger
   (:require 
     [com.stuartsierra.component :as component]
-    [environ.core :as environ]
     [clj-logging-config.log4j :as log-config]
     [clojure.tools.logging :as log]
     [bulk-loader.extractor :as extractor]
