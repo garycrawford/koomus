@@ -13,7 +13,6 @@
                  [com.taoensso/timbre "3.3.1"]
                  [cheshire "5.3.1"]
                  [com.stuartsierra/component "0.2.2"]
-                 [compojure "1.2.0"]
                  [ring/ring-jetty-adapter "1.3.1"]
                  [ring/ring-json "0.3.1"]
                  [ring/ring-defaults "0.1.2"]
