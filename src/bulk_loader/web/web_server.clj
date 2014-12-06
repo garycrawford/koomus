@@ -1,4 +1,4 @@
-(ns bulk-loader.web-server
+(ns bulk-loader.web.web-server
   (:require
     [com.stuartsierra.component :as component]
     [ring.adapter.jetty :as jetty]))

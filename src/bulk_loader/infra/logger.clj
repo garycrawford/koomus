@@ -1,10 +1,10 @@
-(ns bulk-loader.logger
+(ns bulk-loader.infra.logger
   (:require 
     [com.stuartsierra.component :as component]
     [clj-logging-config.log4j :as log-config]
     [clojure.tools.logging :as log]
-    [bulk-loader.extractor :as extractor]
-    [bulk-loader.loader :as loader]
+    [bulk-loader.etl.extractor :as extractor]
+    [bulk-loader.etl.loader :as loader]
     [robert.hooke :as hooke]
     [cheshire.core :as json]))
 

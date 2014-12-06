@@ -3,7 +3,7 @@
   not be included in a production build of the application."
   (:require
    [com.stuartsierra.component :as component]
-   [bulk-loader.system :as sys]
+   [bulk-loader.infra.system :as sys]
    [clojure.java.io :as io]
    [clojure.java.javadoc :refer [javadoc]]
    [clojure.pprint :refer [pprint]]

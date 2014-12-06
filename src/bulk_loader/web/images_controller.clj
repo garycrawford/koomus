@@ -1,8 +1,8 @@
-(ns bulk-loader.images-controller
+(ns bulk-loader.web.images-controller
   (:require
     [com.stuartsierra.component :as component]
     [ring.util.response :as util]
-    [bulk-loader.queue :as blq]))
+    [bulk-loader.infra.queue :as blq]))
 
 (defn- dispatch
   [path queue]

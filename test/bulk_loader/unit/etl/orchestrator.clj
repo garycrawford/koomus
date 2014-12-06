@@ -1,10 +1,10 @@
-(ns bulk-loader.unit.orchestrator
+(ns bulk-loader.unit.etl.orchestrator
   (:use [midje.sweet :only (facts fact => just anything)])
   (:require [clojure.test :refer :all]
-            [bulk-loader.extractor :as io]
-            [bulk-loader.transformer :as tf]
-            [bulk-loader.loader :as l]
-            [bulk-loader.orchestrator :refer :all]))
+            [bulk-loader.etl.extractor :as io]
+            [bulk-loader.etl.transformer :as tf]
+            [bulk-loader.etl.loader :as l]
+            [bulk-loader.etl.orchestrator :refer :all]))
 
 (def _ anything)
 
@@ -14,7 +14,7 @@
           (keys result) => (just :queue))))
 
 ;; this var shadows a private funtion which needs to be tested
-(def shadow-get-pixel-slices #'bulk-loader.orchestrator/get-slice-pixels)
+(def shadow-get-pixel-slices #'bulk-loader.etl.orchestrator/get-slice-pixels)
 
 (facts "pixel relationships should be calculated over a 3 layer sliding window"
   (fact "the first slice will only have one neighbour"
@@ -33,7 +33,7 @@
           (io/get-pixels-for-slices ..path.. 9 3) => ..result..)))
 
 ;; this var shadows a private funtion which needs to be tested
-(def shadow-load-handler #'bulk-loader.orchestrator/load-handler)
+(def shadow-load-handler #'bulk-loader.etl.orchestrator/load-handler)
 
 (facts "the load handler coordinates ETL"
   (fact "functions will be called in extract -> transform -> load order"

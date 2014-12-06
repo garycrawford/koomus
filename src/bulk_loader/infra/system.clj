@@ -1,13 +1,13 @@
-(ns bulk-loader.system
+(ns bulk-loader.infra.system
   (:require 
     [com.stuartsierra.component :as component]
-    [bulk-loader.web-server :as web-server]
-    [bulk-loader.queue :as queue]
-    [bulk-loader.routes :as routes]
-    [bulk-loader.orchestrator :as orchestrator]
-    [bulk-loader.logger :as logger]
-    [bulk-loader.handler :as handler]
-    [bulk-loader.images-controller :as images]
+    [bulk-loader.web.web-server :as web-server]
+    [bulk-loader.infra.queue :as queue]
+    [bulk-loader.web.routes :as routes]
+    [bulk-loader.etl.orchestrator :as orchestrator]
+    [bulk-loader.infra.logger :as logger]
+    [bulk-loader.web.handler :as handler]
+    [bulk-loader.web.images-controller :as images]
     [koomus.trees.metrics :as metrics]
     [environ.core :as environ]))
 

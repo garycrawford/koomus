@@ -1,8 +1,8 @@
-(ns bulk-loader.routes
+(ns bulk-loader.web.routes
   (:require
     [com.stuartsierra.component :as component]
     [ring.util.response :as util]
-    [bulk-loader.images-controller :as images]
+    [bulk-loader.web.images-controller :as images]
     [scenic.routes :as scenic]))
 
 (defn routes-map

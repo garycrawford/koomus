@@ -1,4 +1,4 @@
-(ns bulk-loader.handler
+(ns bulk-loader.web.handler
   (:require
     [com.stuartsierra.component :as component]
     [ring.middleware.json :as json-response]
