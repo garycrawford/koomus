@@ -33,7 +33,9 @@
      :web-server (component/using
                    (web-server/new-web-server)
                    {:handler :handler})
-     :metrics (metrics/new-metrics (environ/env :graphite-host))
+     :metrics (metrics/new-metrics (environ/env :graphite-host)
+                                   (environ/env :graphite-port)
+                                   (environ/env :graphite-prefix))
      :queue (queue/new-queue)
      :orchestrator (component/using
                      (orchestrator/new-orchestrator)

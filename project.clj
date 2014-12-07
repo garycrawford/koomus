@@ -25,11 +25,13 @@
                  [com.revelytix.logbacks/slf4j-log4j12 "1.0.0"]
                  [clj-http "1.0.1"]
                  [cheshire "5.3.1"]
-                 [koomus.trees "0.1.14-SNAPSHOT"]
+                 [koomus.trees "0.1.20-SNAPSHOT"]
                  [org.clojure/core.memoize "0.5.6"]
                  [bidi "1.12.0"]
                  [scenic "0.2.2"]]
-  :profiles {:dev {:env {:graphite-host "127.0.0.1"}
+  :profiles {:dev {:env {:graphite-host "127.0.0.1"
+                         :graphite-port "2003"
+                         :graphite-prefix "Koomus bulk-loader"}
                    :source-paths  ["dev"]
                    :plugins [[lein-midje "3.1.3" ]
                              [lein-ancient "0.5.5"]
