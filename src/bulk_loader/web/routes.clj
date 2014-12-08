@@ -7,9 +7,9 @@
 
 (defn routes-map
   [images-controller] 
-  {:home (fn [req] (util/response "home page"))
+  {:home (fn [req] (util/response {:msg "home place holder"}))
    :add-image (images/add-image images-controller)
-   :healthcheck (fn [req] (util/response "healthcheck"))})
+   :healthcheck (fn [req] (util/response {:msg "healthcheck place holder"}))})
 
 (defrecord Routes [images-controller]
   component/Lifecycle
