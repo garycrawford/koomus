@@ -25,15 +25,17 @@
                  [com.revelytix.logbacks/slf4j-log4j12 "1.0.0"]
                  [clj-http "1.0.1"]
                  [cheshire "5.3.1"]
-                 [koomus.trees "0.1.20-SNAPSHOT"]
+                 [koomus.trees "0.1.22-SNAPSHOT"]
                  [org.clojure/core.memoize "0.5.6"]
                  [bidi "1.12.0"]
-                 [scenic "0.2.2"]]
+                 [scenic "0.2.2"]
+                 [stencil "0.3.5"]]
   :profiles {:dev {:env {:graphite-host "127.0.0.1"
                          :graphite-port "2003"
-                         :graphite-prefix "Koomus bulk-loader"}
+                         :graphite-prefix "koomus.bulk-loader."}
                    :source-paths  ["dev"]
-                   :plugins [[lein-midje "3.1.3" ]
+                   :plugins [[lein-shell "0.4.0"]
+                             [lein-midje "3.1.3" ]
                              [lein-ancient "0.5.5"]
                              [lein-kibit "0.0.8"]
                              [lein-bikeshed "0.1.8"]
@@ -44,8 +46,11 @@
                                   [org.clojure/java.classpath "0.2.2"]]}
              :uberjar {:aot :all
                        :main bulk-loader.zygote}}
-
-  :aliases {"krepl" ["do" ["clean"] ["repl"]]
+  :aliases {"dockerfile" ["do"
+                          ["uberjar"]
+                          ["run" "-m" "bulk-loader.deployment.utils"]
+                          ["shell" "docker" "build" "-t" "koomus/bulk-loader-proj" "."]]
+            "krepl" ["do" ["clean"] ["repl"]]
             "omni" ["do" ["clean"] ["ancient"] ["kibit"] ["bikeshed"] ["eastwood"]]}
   :jvm-opts  ["-Xms2g" "-Xmx8g"]
   :repositories [["imageio" "http://maven.geotoolkit.org/"]])

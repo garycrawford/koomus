@@ -1,0 +1,11 @@
+FROM pallet/java:busybox-latest
+
+COPY target/bulk-loader-{{version}}-standalone.jar /opt/deploy/bulk-loader-{{version}}-standalone.jar
+
+ENV graphite-host 127.0.0.1
+ENV graphite-port 2003
+ENV graphite-prefix koomus.bulk-loader.
+
+EXPOSE 1234
+
+ENTRYPOINT ["java", "-jar", "/opt/deploy/bulk-loader-{{version}}-standalone.jar"]
