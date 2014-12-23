@@ -1,11 +1,13 @@
 FROM pallet/java:busybox-latest
 
 COPY target/bulk-loader-{{version}}-standalone.jar /opt/deploy/bulk-loader-{{version}}-standalone.jar
+COPY env.sh /opt/deploy/env.sh
 
-ENV graphite-host 127.0.0.1
-ENV graphite-port 2003
-ENV graphite-prefix koomus.bulk-loader.
+RUN chmod u+x /opt/deploy/env.sh
+
+ENV GRAPHITE_PREFIX koomus.bulk-loader.
+ENV GRAPHITE_PORT 2003
 
 EXPOSE 1234
 
-ENTRYPOINT ["java", "-jar", "/opt/deploy/bulk-loader-{{version}}-standalone.jar"]
+ENTRYPOINT ["/opt/deploy/env.sh"]

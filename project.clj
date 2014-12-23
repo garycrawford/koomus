@@ -25,7 +25,7 @@
                  [com.revelytix.logbacks/slf4j-log4j12 "1.0.0"]
                  [clj-http "1.0.1"]
                  [cheshire "5.3.1"]
-                 [koomus.trees "0.1.22-SNAPSHOT"]
+                 [koomus.trees "0.1.23-SNAPSHOT"]
                  [org.clojure/core.memoize "0.5.6"]
                  [bidi "1.12.0"]
                  [scenic "0.2.2"]
@@ -46,11 +46,10 @@
                                   [org.clojure/java.classpath "0.2.2"]]}
              :uberjar {:aot :all
                        :main bulk-loader.zygote}}
-  :aliases {"dockerfile" ["do"
+  :aliases {"dockerise" ["do"
                           ["uberjar"]
                           ["run" "-m" "bulk-loader.deployment.utils"]
-                          ["shell" "docker" "build" "-t" "koomus/bulk-loader-proj" "."]]
-            "krepl" ["do" ["clean"] ["repl"]]
+                          ["shell" "docker" "build" "-t" "koomus/bulk-loader" "."]]
             "omni" ["do" ["clean"] ["ancient"] ["kibit"] ["bikeshed"] ["eastwood"]]}
   :jvm-opts  ["-Xms2g" "-Xmx8g"]
   :repositories [["imageio" "http://maven.geotoolkit.org/"]])

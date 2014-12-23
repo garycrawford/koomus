@@ -10,5 +10,5 @@
   []
   (alter-var-root #'bulk-loader-system component/start))
 
-(defn -main []
+(defn -main [& args]
   (app-init))
